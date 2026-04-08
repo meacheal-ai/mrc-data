@@ -1,0 +1,13 @@
+Copyright (c) 2026 MEACHEAL Research Center
+
+The MRC Data API and database are proprietary. A free tier (1,000 requests/day)
+is available for individual developers and AI agents. Pro and Enterprise tiers
+are available under commercial agreement.
+
+This repository contains public-facing documentation, install snippets, and
+integration examples. The MRC Data server source code is not contained in this
+repository and remains proprietary.
+
+Full terms of service: https://api.meacheal.ai/terms
+Privacy policy:        https://api.meacheal.ai/privacy
+Contact:               api@meacheal.ai
