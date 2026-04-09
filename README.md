@@ -1,5 +1,7 @@
 [![License](https://img.shields.io/badge/License-Proprietary-blue)](https://api.meacheal.ai/terms)
 [![MCP Registry](https://img.shields.io/badge/MCP%20Registry-verified-5B6CF0)](https://api.meacheal.ai/registry)
+[![npm](https://img.shields.io/npm/v/mrc-data)](https://www.npmjs.com/package/mrc-data)
+[![PyPI](https://img.shields.io/pypi/v/mrc-data)](https://pypi.org/project/mrc-data/)
 
 # MRC Data
 
@@ -30,6 +32,19 @@ Add to your MCP config (`claude_desktop_config.json` or `.cursor/mcp.json`):
 claude mcp add --scope user --transport http mrc-data \
   https://api.meacheal.ai/mcp \
   --header "Authorization: Bearer YOUR_API_KEY"
+```
+
+### SDK
+
+```bash
+npm install mrc-data    # TypeScript / JavaScript
+pip install mrc-data    # Python
+```
+
+```ts
+import { MRCData } from "mrc-data";
+const mrc = new MRCData({ apiKey: "YOUR_API_KEY" });
+const suppliers = await mrc.searchSuppliers({ province: "guangdong", product_type: "sportswear" });
 ```
 
 ### REST API (ChatGPT Actions, Gemini, Copilot, custom apps)
