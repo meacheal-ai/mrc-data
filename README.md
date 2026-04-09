@@ -207,6 +207,7 @@ curl https://api.meacheal.ai/demo
 | Design principles | [docs/design-principles.md](docs/design-principles.md) |
 | Full tool reference | [docs/tool-reference.md](docs/tool-reference.md) |
 | Slim tool reference | [docs/slim-tool-reference.md](docs/slim-tool-reference.md) |
+| Integrations | [docs/integrations.md](docs/integrations.md) |
 
 **Registry listings:**
 
