@@ -1,0 +1,205 @@
+# MRC Data MCP Server — Automated Quality Tests
+# Run: npx promptfoo@latest eval
+# View: npx promptfoo@latest view
+
+description: "MRC Data MCP tool quality tests"
+
+providers:
+  - id: "http://localhost:8000/v1/chat/completions"
+    label: "mrc-data-local"
+    config:
+      # If using OpenAI-compatible proxy, configure here
+      # Otherwise use curl-based provider below
+      temperature: 0
+
+# Alternative: test REST API endpoints directly
+providers:
+  - id: exec:curl
+    label: mrc-data-api
+    config:
+      # Tests hit the live API demo tier (no key needed, 50 req/day)
+      baseUrl: "https://api.meacheal.ai"
+
+prompts:
+  - "{{query}}"
+
+tests:
+  # ============================================================
+  # search_suppliers
+  # ============================================================
+  - description: "search_suppliers — basic province filter"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/suppliers?province=guangdong&limit=3"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).total > 0"
+      - type: javascript
+        value: "JSON.parse(output).data.length <= 3"
+      - type: javascript
+        value: "JSON.parse(output).data.every(s => s.supplier_id && s.company_name_cn)"
+
+  - description: "search_suppliers — product_type filter"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/suppliers?product_type=sportswear&limit=5"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).total >= 0"
+
+  - description: "search_suppliers — min_capacity filter"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/suppliers?min_capacity=50000&limit=5"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).data.every(s => (s.verified_capacity_monthly || s.declared_capacity_monthly) >= 50000)"
+
+  - description: "search_suppliers — pagination"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/suppliers?limit=2&offset=0"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).limit === 2"
+      - type: javascript
+        value: "typeof JSON.parse(output).has_more === 'boolean'"
+
+  # ============================================================
+  # search_fabrics
+  # ============================================================
+  - description: "search_fabrics — category filter"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/fabrics?category=knit&limit=3"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).data.every(f => f.category === 'knit')"
+
+  - description: "search_fabrics — weight range"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/fabrics?min_weight_gsm=150&max_weight_gsm=250&limit=5"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).total >= 0"
+
+  - description: "search_fabrics — composition filter"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/fabrics?composition=cotton&limit=3"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).total >= 0"
+
+  # ============================================================
+  # search_clusters
+  # ============================================================
+  - description: "search_clusters — province filter"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/clusters?province=zhejiang&limit=3"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).total >= 0"
+
+  # ============================================================
+  # get_supplier_detail
+  # ============================================================
+  - description: "get_supplier_detail — valid ID"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/suppliers/sup_001"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).data && JSON.parse(output).data.supplier_id === 'sup_001'"
+
+  - description: "get_supplier_detail — invalid ID returns actionable error"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/suppliers/sup_99999"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).error && JSON.parse(output).suggestion"
+
+  # ============================================================
+  # get_fabric_detail
+  # ============================================================
+  - description: "get_fabric_detail — valid ID"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/fabrics/fab_001"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).data && JSON.parse(output).data.fabric_id === 'fab_001'"
+
+  - description: "get_fabric_detail — invalid ID returns actionable error"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/fabrics/fab_99999"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).error && JSON.parse(output).suggestion"
+
+  # ============================================================
+  # get_stats
+  # ============================================================
+  - description: "get_stats — returns database overview"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/stats"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "const d = JSON.parse(output); d.tables && d.tables.suppliers && d.tables.fabrics && d.tables.clusters"
+
+  # ============================================================
+  # get_supplier_fabrics
+  # ============================================================
+  - description: "get_supplier_fabrics — valid supplier"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/suppliers/sup_001/fabrics"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).supplier_id === 'sup_001'"
+
+  # ============================================================
+  # get_fabric_suppliers
+  # ============================================================
+  - description: "get_fabric_suppliers — valid fabric"
+    vars:
+      query: "curl -s https://api.meacheal.ai/v1/fabrics/fab_001/suppliers"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).fabric_id === 'fab_001'"
+
+  # ============================================================
+  # compare_clusters
+  # ============================================================
+  - description: "compare_clusters — two clusters"
+    vars:
+      query: "curl -s -X POST https://api.meacheal.ai/v1/clusters/compare -H 'Content-Type: application/json' -d '{\"cluster_ids\":[\"clu_001\",\"clu_002\"]}'"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).count === 2"
+
+  # ============================================================
+  # detect_discrepancy
+  # ============================================================
+  - description: "detect_discrepancy — fabric_weight"
+    vars:
+      query: "curl -s -X POST https://api.meacheal.ai/v1/discrepancy -H 'Content-Type: application/json' -d '{\"field\":\"fabric_weight\",\"min_discrepancy_pct\":5}'"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).field === 'fabric_weight'"
+
+  - description: "detect_discrepancy — invalid field returns actionable error"
+    vars:
+      query: "curl -s -X POST https://api.meacheal.ai/v1/discrepancy -H 'Content-Type: application/json' -d '{\"field\":\"invalid_field\"}'"
+    assert:
+      - type: is-json
+      - type: javascript
+        value: "JSON.parse(output).error && JSON.parse(output).suggestion"
