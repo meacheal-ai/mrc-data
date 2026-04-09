@@ -7,13 +7,15 @@
 
 China's apparel supply chain data infrastructure for AI agents.
 
+1,040 suppliers | 351 lab-tested fabrics | 173 industrial clusters | 2,467 supplier-fabric links
+
 ---
 
-## Quick start
+## Install
 
-### Claude Desktop / Cursor
+### Claude Desktop
 
-Add to your MCP config (`claude_desktop_config.json` or `.cursor/mcp.json`):
+Add to `claude_desktop_config.json`:
 
 ```json
 {
@@ -26,12 +28,90 @@ Add to your MCP config (`claude_desktop_config.json` or `.cursor/mcp.json`):
 }
 ```
 
-### Claude Code CLI
+### Claude Code
 
 ```bash
 claude mcp add --scope user --transport http mrc-data \
   https://api.meacheal.ai/mcp \
   --header "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Cursor
+
+Add to `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "mrc-data": {
+      "url": "https://api.meacheal.ai/mcp",
+      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+    }
+  }
+}
+```
+
+### VS Code (Copilot)
+
+Add to `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "mrc-data": {
+      "type": "http",
+      "url": "https://api.meacheal.ai/mcp",
+      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+    }
+  }
+}
+```
+
+### Windsurf
+
+Add to `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mrc-data": {
+      "serverUrl": "https://api.meacheal.ai/mcp",
+      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+    }
+  }
+}
+```
+
+### Cline
+
+Add to Cline MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "mrc-data": {
+      "url": "https://api.meacheal.ai/mcp",
+      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+    }
+  }
+}
+```
+
+### Zed
+
+Add to Zed settings (`settings.json`):
+
+```json
+{
+  "context_servers": {
+    "mrc-data": {
+      "settings": {
+        "url": "https://api.meacheal.ai/mcp",
+        "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+      }
+    }
+  }
+}
 ```
 
 ### SDK
@@ -80,20 +160,18 @@ Free, instant signup at **[api.meacheal.ai/apply](https://api.meacheal.ai/apply)
 
 ---
 
-## Available tools (10)
+## Available tools
 
-| Tool | What it does |
+18 tools organized into 4 categories. Full reference: [docs/tool-reference.md](docs/tool-reference.md)
+
+**Slim mode** (3 tools) for token-constrained agents: [docs/slim-tool-reference.md](docs/slim-tool-reference.md)
+
+| Category | Tools |
 |---|---|
-| `search_suppliers` | Filter by province, type, capacity, product, compliance, quality score |
-| `get_supplier_detail` | Full 50+ field profile of one supplier |
-| `search_fabrics` | Filter by category, weight (gsm), composition, target product, price |
-| `get_fabric_detail` | Full lab-tested record with 30+ specifications |
-| `search_clusters` | Filter industrial clusters by province, type, specialization, scale |
-| `compare_clusters` | Side-by-side comparison of multiple clusters |
-| `detect_discrepancy` | Surface specs that deviate from AATCC / ISO / GB lab-test results |
-| `get_supplier_fabrics` | All fabrics offered by a specific supplier, with quotes |
-| `get_fabric_suppliers` | All suppliers of a specific fabric, ranked by quality |
-| `get_stats` | Database overview and summary statistics |
+| **Search** | `search_suppliers`, `search_fabrics`, `search_clusters` |
+| **Detail** | `get_supplier_detail`, `get_fabric_detail`, `get_stats` |
+| **Cross-reference** | `get_supplier_fabrics`, `get_fabric_suppliers`, `compare_clusters`, `compare_suppliers` |
+| **Intelligence** | `detect_discrepancy`, `check_compliance`, `recommend_suppliers`, `find_alternatives`, `estimate_cost`, `analyze_market`, `get_product_categories`, `get_province_distribution` |
 
 ---
 
@@ -105,7 +183,6 @@ Ask your AI agent:
 - "What is the largest knit fabric cluster in Zhejiang and what is the average labor cost?"
 - "Compare Humen, Shaoxing Keqiao, and Haining clusters on supplier count and rent"
 - "Show me all cotton twill fabrics under 200 gsm with OEKO-TEX certified suppliers"
-- "Which fabrics have the biggest deviation from AATCC / ISO / GB lab-test weight results?"
 
 ---
 
@@ -123,13 +200,24 @@ curl https://api.meacheal.ai/demo
 
 | | |
 |---|---|
-| Homepage | [api.meacheal.ai](https://api.meacheal.ai) |
-| Docs | [api.meacheal.ai/docs](https://api.meacheal.ai/docs) |
+| Homepage | [meacheal.ai](https://meacheal.ai) |
+| API docs | [api.meacheal.ai/docs](https://api.meacheal.ai/docs) |
 | Interactive demo | [api.meacheal.ai/demo](https://api.meacheal.ai/demo) |
 | OpenAPI spec | [api.meacheal.ai/openapi.json](https://api.meacheal.ai/openapi.json) |
-| OpenAPI reference | [api.meacheal.ai/openapi](https://api.meacheal.ai/openapi) |
+| Design principles | [docs/design-principles.md](docs/design-principles.md) |
+| Full tool reference | [docs/tool-reference.md](docs/tool-reference.md) |
+| Slim tool reference | [docs/slim-tool-reference.md](docs/slim-tool-reference.md) |
+
+**Registry listings:**
+
+| Platform | Link |
+|---|---|
 | MCP Registry | [ai.meacheal/mrc-data](https://api.meacheal.ai/registry) |
 | Smithery | [meacheal-ai/mrc-data](https://smithery.ai/server/@meacheal-ai/mrc-data) |
+| PulseMCP | [mrc-data](https://pulsemcp.com/servers/mrc-data) |
+| Glama | [mrc-data](https://glama.ai/mcp/servers/mrc-data) |
+| mcp.run | [mrc-data](https://mcp.run/server/mrc-data) |
+| MCPmarket | [mrc-data](https://mcpmarket.com/server/mrc-data) |
 
 ---
 
