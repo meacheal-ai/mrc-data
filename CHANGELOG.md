@@ -4,18 +4,36 @@ All notable changes to MRC Data are documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [2.2.2] - 2026-04-09
+## [2.2.2] - 2026-04-10
+
+### Added
+- 9 new MCP tools (19 total): recommend_suppliers, find_alternatives, compare_suppliers, get_cluster_suppliers, check_compliance, estimate_cost, analyze_market, get_product_categories, get_province_distribution
+- A2A (Agent-to-Agent) protocol support at /.well-known/agent-card.json
+- MCP Server Card at /.well-known/mcp/server-card.json
+- Brand transparency data: 7 brands integrated (Lululemon, Puma, New Balance, H&M, Adidas, Uniqlo, Gap Inc.)
+- Database expanded to ~3,000+ suppliers from cross-referencing public brand transparency reports
 
 ### Fixed
-- English search support -- all tool parameters now accept English queries (province names, product categories, fabric types) alongside Chinese
-- CORS headers -- added proper CORS configuration for browser-based MCP clients and OpenAPI interactive docs
-- Tier filtering -- API key tier validation now correctly enforces rate limits across all endpoints
-- Unicode data fix -- resolved encoding issues in supplier names and address fields containing special CJK characters
-- Log masking -- API keys and user tokens are now fully redacted in server logs
+- Province search returning 0 results (normalizeProvince now handles Chinese, English, and pinyin)
+- /v1/me authentication fallback (now accepts both session cookie and Bearer token)
+- Burst rate limiting (switched from async DB to in-memory sliding window)
+- HTML pages missing security headers (CSP, X-Frame-Options)
+- Demo endpoint leaking stack traces on error
+
+### Security
+- Added capOutput() to limit MCP tool responses to 200KB
+- Removed total count from search responses (anti-scraping)
+- Demo stats hardcoded (no longer exposes live database size)
+
+### Architecture
+- Code restructured from single 4175-line file to 19 modular files
+- Shared query layer (db/) eliminates 3x code duplication across MCP/REST/A2A
+- Reference: modelcontextprotocol/servers, github/github-mcp-server, cloudflare/agents
 
 ### Improved
-- OpenAPI spec -- added detailed parameter descriptions, example values, and response schemas for all 10 endpoints
-- Analytics tracking -- added anonymous usage metrics per tool and tier for capacity planning
+- OpenAPI spec updated for all endpoints with correct response schemas
+- English search support across all tool parameters
+- CORS, tier filtering, log masking improvements
 
 ## [2.2.1] - 2026-04-08 [DELETED]
 

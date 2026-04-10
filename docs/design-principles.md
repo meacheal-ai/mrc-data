@@ -49,9 +49,9 @@ Three levels of detail, matching different agent needs:
 |---|---|---|
 | **Slim** (3 tools) | `search_suppliers`, `search_fabrics`, `get_stats` | ~200 tokens |
 | **Standard** (10 tools) | + detail, cross-reference, and discrepancy tools | ~800 tokens |
-| **Full** (18 tools) | + intelligence tools (compliance, cost, recommendations) | ~1,500 tokens |
+| **Full** (19 tools) | + intelligence tools (compliance, cost, recommendations) | ~1,500 tokens |
 
-Agents with limited context budgets use slim mode. Full-featured agents use all 18 tools.
+Agents with limited context budgets use slim mode. Full-featured agents use all 19 tools.
 
 ---
 
@@ -63,7 +63,7 @@ MRC Data works with any MCP-compatible client: Claude, ChatGPT, Gemini, Copilot,
 
 ## 6. Pagination by default
 
-All search tools return paginated results with `total`, `limit`, `offset`, and `has_more`. Default page size is 10, max is 50. This prevents token overflow from large result sets.
+All search tools return paginated results with `limit`, `offset`, and `has_more`. Default page size is 10, max is 50. This prevents token overflow from large result sets.
 
 ---
 

@@ -18,4 +18,4 @@ Database overview: record counts and verification coverage. No parameters.
 
 ---
 
-These 3 tools cover basic discovery. For supplier/fabric details, cross-references, compliance checks, and cost estimation, use the full 18-tool set.
+These 3 tools cover basic discovery. For supplier/fabric details, cross-references, compliance checks, and cost estimation, use the full 19-tool set.
