@@ -1,0 +1,14 @@
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    properties:
+      apiKey:
+        type: string
+        title: API Key
+        description: "Get your free API key at https://api.meacheal.ai/apply"
+    required:
+      - apiKey
+  url: https://api.meacheal.ai/mcp
+  headers:
+    Authorization: "Bearer ${apiKey}"

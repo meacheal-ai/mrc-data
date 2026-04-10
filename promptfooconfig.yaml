@@ -2,23 +2,11 @@
 # Run: npx promptfoo@latest eval
 # View: npx promptfoo@latest view
 
-description: "MRC Data MCP tool quality tests"
+description: "MRC Data API quality tests"
 
 providers:
-  - id: "http://localhost:8000/v1/chat/completions"
-    label: "mrc-data-local"
-    config:
-      # If using OpenAI-compatible proxy, configure here
-      # Otherwise use curl-based provider below
-      temperature: 0
-
-# Alternative: test REST API endpoints directly
-providers:
-  - id: exec:curl
+  - id: exec:bash -c
     label: mrc-data-api
-    config:
-      # Tests hit the live API demo tier (no key needed, 50 req/day)
-      baseUrl: "https://api.meacheal.ai"
 
 prompts:
   - "{{query}}"
@@ -29,7 +17,7 @@ tests:
   # ============================================================
   - description: "search_suppliers — basic province filter"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/suppliers?province=guangdong&limit=3"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/suppliers?province=guangdong&limit=3'"
     assert:
       - type: is-json
       - type: javascript
@@ -41,7 +29,7 @@ tests:
 
   - description: "search_suppliers — product_type filter"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/suppliers?product_type=sportswear&limit=5"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/suppliers?product_type=sportswear&limit=5'"
     assert:
       - type: is-json
       - type: javascript
@@ -49,7 +37,7 @@ tests:
 
   - description: "search_suppliers — min_capacity filter"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/suppliers?min_capacity=50000&limit=5"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/suppliers?min_capacity=50000&limit=5'"
     assert:
       - type: is-json
       - type: javascript
@@ -57,7 +45,7 @@ tests:
 
   - description: "search_suppliers — pagination"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/suppliers?limit=2&offset=0"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/suppliers?limit=2&offset=0'"
     assert:
       - type: is-json
       - type: javascript
@@ -70,7 +58,7 @@ tests:
   # ============================================================
   - description: "search_fabrics — category filter"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/fabrics?category=knit&limit=3"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/fabrics?category=knit&limit=3'"
     assert:
       - type: is-json
       - type: javascript
@@ -78,7 +66,7 @@ tests:
 
   - description: "search_fabrics — weight range"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/fabrics?min_weight_gsm=150&max_weight_gsm=250&limit=5"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/fabrics?min_weight_gsm=150&max_weight_gsm=250&limit=5'"
     assert:
       - type: is-json
       - type: javascript
@@ -86,7 +74,7 @@ tests:
 
   - description: "search_fabrics — composition filter"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/fabrics?composition=cotton&limit=3"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/fabrics?composition=cotton&limit=3'"
     assert:
       - type: is-json
       - type: javascript
@@ -97,7 +85,7 @@ tests:
   # ============================================================
   - description: "search_clusters — province filter"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/clusters?province=zhejiang&limit=3"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/clusters?province=zhejiang&limit=3'"
     assert:
       - type: is-json
       - type: javascript
@@ -108,7 +96,7 @@ tests:
   # ============================================================
   - description: "get_supplier_detail — valid ID"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/suppliers/sup_001"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/suppliers/sup_001'"
     assert:
       - type: is-json
       - type: javascript
@@ -116,48 +104,48 @@ tests:
 
   - description: "get_supplier_detail — invalid ID returns actionable error"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/suppliers/sup_99999"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/suppliers/sup_99999'"
     assert:
       - type: is-json
       - type: javascript
-        value: "JSON.parse(output).error && JSON.parse(output).suggestion"
+        value: "const d = JSON.parse(output); d.error && d.error.code === 'not_found' && d.error.hint !== undefined"
 
   # ============================================================
   # get_fabric_detail
   # ============================================================
   - description: "get_fabric_detail — valid ID"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/fabrics/fab_001"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/fabrics/FAB-W100'"
     assert:
       - type: is-json
       - type: javascript
-        value: "JSON.parse(output).data && JSON.parse(output).data.fabric_id === 'fab_001'"
+        value: "JSON.parse(output).data && JSON.parse(output).data.fabric_id === 'FAB-W100'"
 
   - description: "get_fabric_detail — invalid ID returns actionable error"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/fabrics/fab_99999"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/fabrics/fab_99999'"
     assert:
       - type: is-json
       - type: javascript
-        value: "JSON.parse(output).error && JSON.parse(output).suggestion"
+        value: "const d = JSON.parse(output); d.error && d.error.code === 'not_found' && d.error.hint !== undefined"
 
   # ============================================================
   # get_stats
   # ============================================================
   - description: "get_stats — returns database overview"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/stats"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/stats'"
     assert:
       - type: is-json
       - type: javascript
-        value: "const d = JSON.parse(output); d.tables && d.tables.suppliers && d.tables.fabrics && d.tables.clusters"
+        value: "const d = JSON.parse(output); d.tables && d.tables.suppliers.total > 0 && d.tables.fabrics.total > 0 && d.tables.clusters.total > 0"
 
   # ============================================================
   # get_supplier_fabrics
   # ============================================================
   - description: "get_supplier_fabrics — valid supplier"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/suppliers/sup_001/fabrics"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/suppliers/sup_001/fabrics'"
     assert:
       - type: is-json
       - type: javascript
@@ -168,18 +156,18 @@ tests:
   # ============================================================
   - description: "get_fabric_suppliers — valid fabric"
     vars:
-      query: "curl -s https://api.meacheal.ai/v1/fabrics/fab_001/suppliers"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/fabrics/FAB-W100/suppliers'"
     assert:
       - type: is-json
       - type: javascript
-        value: "JSON.parse(output).fabric_id === 'fab_001'"
+        value: "JSON.parse(output).fabric_id === 'FAB-W100'"
 
   # ============================================================
   # compare_clusters
   # ============================================================
   - description: "compare_clusters — two clusters"
     vars:
-      query: "curl -s -X POST https://api.meacheal.ai/v1/clusters/compare -H 'Content-Type: application/json' -d '{\"cluster_ids\":[\"clu_001\",\"clu_002\"]}'"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/clusters/compare?ids=CL-9812FF90,shishi_casual'"
     assert:
       - type: is-json
       - type: javascript
@@ -190,7 +178,7 @@ tests:
   # ============================================================
   - description: "detect_discrepancy — fabric_weight"
     vars:
-      query: "curl -s -X POST https://api.meacheal.ai/v1/discrepancy -H 'Content-Type: application/json' -d '{\"field\":\"fabric_weight\",\"min_discrepancy_pct\":5}'"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/discrepancy?field=fabric_weight&min_discrepancy_pct=5'"
     assert:
       - type: is-json
       - type: javascript
@@ -198,8 +186,8 @@ tests:
 
   - description: "detect_discrepancy — invalid field returns actionable error"
     vars:
-      query: "curl -s -X POST https://api.meacheal.ai/v1/discrepancy -H 'Content-Type: application/json' -d '{\"field\":\"invalid_field\"}'"
+      query: "curl -s -H 'Authorization: Bearer mrc_a056e43612f28cec4705a9ebfca45712cd59dfca0b8b4004' 'https://api.meacheal.ai/v1/discrepancy?field=invalid_field'"
     assert:
       - type: is-json
       - type: javascript
-        value: "JSON.parse(output).error && JSON.parse(output).suggestion"
+        value: "const d = JSON.parse(output); typeof d.error === 'string' && d.error.includes('Valid values')"

@@ -7,7 +7,9 @@
 
 China's apparel supply chain data infrastructure for AI agents.
 
-~3,000 verified suppliers | 350+ lab-tested fabrics | 170+ industrial clusters | 2,000+ supplier-fabric links
+3,200+ verified suppliers across 8 dimensions | 350+ lab-tested fabrics | 170+ industrial clusters | 1,000+ certification-matched records
+
+Every record includes a `verified_dims` score (e.g. "5/8") showing exactly which dimensions have been verified.
 
 ---
 
