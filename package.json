@@ -1,0 +1,25 @@
+{
+  "name": "mrc-data",
+  "version": "2.2.2",
+  "description": "China's apparel supply chain data infrastructure for AI agents. 3,200+ verified suppliers across 8 dimensions, 350+ lab-tested fabrics, 170+ industrial clusters. Every record enriched with independent AATCC/ISO/GB lab measurements.",
+  "author": "MEACHEAL Research Center <api@meacheal.ai>",
+  "homepage": "https://api.meacheal.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meacheal-ai/mrc-data"
+  },
+  "keywords": [
+    "mcp",
+    "supply-chain",
+    "apparel",
+    "china",
+    "manufacturing",
+    "fabric",
+    "textile",
+    "sourcing",
+    "compliance",
+    "ai-agent",
+    "model-context-protocol"
+  ],
+  "license": "SEE LICENSE IN LICENSE"
+}
