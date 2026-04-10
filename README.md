@@ -7,7 +7,7 @@
 
 China's apparel supply chain data infrastructure for AI agents.
 
-1,040 suppliers | 351 lab-tested fabrics | 173 industrial clusters | 2,467 supplier-fabric links
+~3,000 verified suppliers | 350+ lab-tested fabrics | 170+ industrial clusters | 2,000+ supplier-fabric links
 
 ---
 
@@ -153,16 +153,16 @@ Free, instant signup at **[api.meacheal.ai/apply](https://api.meacheal.ai/apply)
 
 | Dataset | Records | Highlights |
 |---|---|---|
-| Suppliers | 1,040 | Capacity, equipment, certifications (BSCI / OEKO-TEX / GRS / GOTS), market access |
-| Fabrics | 351 | AATCC / ISO / GB lab-tested specs: weight, composition, fastness, shrinkage, tensile strength |
-| Clusters | 173 | Humen, Shaoxing Keqiao, Haining, Zhili, Shengze, Shantou, Jinjiang, and more |
-| Supplier-Fabric links | 2,467 | Which suppliers offer which fabrics, with pricing |
+| Suppliers | ~3,000 | Capacity, certifications (OEKO-TEX / WRAP / SA8000 / GOTS / Bluesign), brand partnerships, GPS coordinates |
+| Fabrics | 350+ | AATCC / ISO / GB lab-tested specs: weight, composition, fastness, shrinkage, tensile strength |
+| Clusters | 170+ | Humen, Shaoxing Keqiao, Haining, Zhili, Shengze, Shantou, Jinjiang, and more |
+| Supplier-Fabric links | 2,000+ | Which suppliers offer which fabrics, with pricing |
 
 ---
 
 ## Available tools
 
-18 tools organized into 4 categories. Full reference: [docs/tool-reference.md](docs/tool-reference.md)
+19 tools organized into 4 categories. Full reference: [docs/tool-reference.md](docs/tool-reference.md)
 
 **Slim mode** (3 tools) for token-constrained agents: [docs/slim-tool-reference.md](docs/slim-tool-reference.md)
 
@@ -170,7 +170,7 @@ Free, instant signup at **[api.meacheal.ai/apply](https://api.meacheal.ai/apply)
 |---|---|
 | **Search** | `search_suppliers`, `search_fabrics`, `search_clusters` |
 | **Detail** | `get_supplier_detail`, `get_fabric_detail`, `get_stats` |
-| **Cross-reference** | `get_supplier_fabrics`, `get_fabric_suppliers`, `compare_clusters`, `compare_suppliers` |
+| **Cross-reference** | `get_supplier_fabrics`, `get_fabric_suppliers`, `compare_clusters`, `compare_suppliers`, `get_cluster_suppliers` |
 | **Intelligence** | `detect_discrepancy`, `check_compliance`, `recommend_suppliers`, `find_alternatives`, `estimate_cost`, `analyze_market`, `get_product_categories`, `get_province_distribution` |
 
 ---

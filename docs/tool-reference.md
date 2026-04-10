@@ -1,6 +1,6 @@
 # MRC Data -- Tool Reference
 
-Complete reference for all 18 MCP tools. For a minimal subset, see [slim-tool-reference.md](slim-tool-reference.md).
+Complete reference for all 19 MCP tools. For a minimal subset, see [slim-tool-reference.md](slim-tool-reference.md).
 
 ---
 
@@ -140,7 +140,21 @@ Side-by-side comparison of multiple suppliers on capacity, quality, compliance, 
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
-| `supplier_ids` | string[] | **yes** | List of supplier IDs |
+| `supplier_ids` | string[] | **yes** | List of supplier IDs (max 10) |
+
+---
+
+### `get_cluster_suppliers`
+
+List all suppliers in a specific industrial cluster, sorted by quality score.
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `cluster_id` | string | **yes** | Cluster ID (e.g. `humen_women`, `keqiao_fabric`) |
+| `limit` | integer | no | Results per page (default 20, max 50) |
+| `offset` | integer | no | Skip N results for pagination |
+
+**Returns:** Paginated supplier list with `has_more`, sorted by quality score descending.
 
 ---
 
