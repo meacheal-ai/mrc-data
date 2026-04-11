@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="12" fill="#08080f"/>
-  <text x="32" y="44" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="36" fill="#c9a84c">M</text>
+  <text x="32" y="40" text-anchor="middle" font-family="'SF Mono', 'DM Mono', 'Menlo', monospace" font-weight="700" font-size="14" fill="#c9a84c" letter-spacing="2">MRC</text>
+  <text x="32" y="52" text-anchor="middle" font-family="'SF Mono', 'DM Mono', 'Menlo', monospace" font-weight="400" font-size="6" fill="#c9a84c" opacity="0.6" letter-spacing="3">DATA</text>
 </svg>
