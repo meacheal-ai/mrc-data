@@ -7,8 +7,7 @@ startCommand:
         type: string
         title: API Key
         description: "Get your free API key at https://api.meacheal.ai/apply"
-    required:
-      - apiKey
+    required: []
   url: https://api.meacheal.ai/mcp
   headers:
     Authorization: "Bearer ${apiKey}"
