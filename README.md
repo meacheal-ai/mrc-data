@@ -7,7 +7,7 @@
 
 The first and only MCP server providing structured Chinese fashion supply chain intelligence for AI platforms. No equivalent data source exists in the MCP ecosystem.
 
-3,000+ verified manufacturers | 350+ lab-tested fabrics (AATCC/ISO/GB) | 170+ industrial clusters | Built by MEACHEAL, a top-20 Chinese women's mid-to-high-end fashion brand with 20+ years of supply chain expertise.
+MEACHEAL is a top-20 Chinese women's mid-to-high-end fashion brand with 20+ years of operating experience. Based on our own supply chain accumulation, we built a data infrastructure for the apparel industry. Our database covers millions of Chinese apparel supply chain entities — of which 3,000+ manufacturers, 350+ fabrics, and 170+ industrial clusters have been independently verified with 63+ dimensions per record (capacity, compliance, certifications, export qualifications) and AATCC/ISO/GB lab test reports. Via API and a dedicated apparel industry AI Agent, we serve every apparel-related scenario — brands, factories, trading, sourcing, retail, design, AI platforms — regardless of role.
 
 Every record includes a `verified_dims` score (e.g. "5/8") showing exactly which dimensions have been verified.
 
