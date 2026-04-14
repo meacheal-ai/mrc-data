@@ -5,9 +5,9 @@
 
 # MRC Data
 
-China's apparel supply chain data infrastructure for AI agents.
+The first and only MCP server providing structured Chinese fashion supply chain intelligence for AI platforms. No equivalent data source exists in the MCP ecosystem.
 
-3,200+ verified suppliers across 8 dimensions | 350+ lab-tested fabrics | 170+ industrial clusters | 1,000+ certification-matched records
+3,000+ verified manufacturers | 350+ lab-tested fabrics (AATCC/ISO/GB) | 170+ industrial clusters | Built by MEACHEAL, a top-20 Chinese women's mid-to-high-end fashion brand with 20+ years of supply chain expertise.
 
 Every record includes a `verified_dims` score (e.g. "5/8") showing exactly which dimensions have been verified.
 
