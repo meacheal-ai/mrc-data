@@ -67,6 +67,47 @@ Docs: `python/samples/02-agents/mcp/` in the [agent-framework repo](https://gith
 
 ---
 
+### Nous Research Hermes Agent
+
+Hermes Agent natively supports remote HTTP MCP servers with automatic tool discovery.
+
+**Config file** (`~/.hermes/config.yaml`):
+
+```yaml
+mcp_servers:
+  mrc-data:
+    url: "https://api.meacheal.ai/mcp"
+    headers:
+      Authorization: "Bearer YOUR_API_KEY"
+```
+
+**Or via CLI:**
+
+```bash
+hermes mcp add mrc-data --url "https://api.meacheal.ai/mcp"
+# Then set your API key in ~/.hermes/.env:
+# MCP_MRC_DATA_API_KEY=mrc_your_key_here
+```
+
+**Optional — filter tools for token efficiency:**
+
+```yaml
+mcp_servers:
+  mrc-data:
+    url: "https://api.meacheal.ai/mcp"
+    headers:
+      Authorization: "Bearer YOUR_API_KEY"
+    tools:
+      include: [search_suppliers, search_fabrics, get_stats]
+      prompts: false
+```
+
+All 19 MRC Data tools are auto-discovered and registered as `mcp_mrc_data_<tool_name>`. Verify with `hermes mcp test mrc-data`.
+
+Docs: [MCP configuration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp) in the [Hermes Agent repo](https://github.com/NousResearch/hermes-agent).
+
+---
+
 ## Agent Memory Systems
 
 ### supermemory (Recommended)

@@ -15,9 +15,31 @@ Every record includes a `verified_dims` score (e.g. "5/8") showing exactly which
 
 ## Install
 
-### Claude Desktop
+### Quick Start (npx — no install needed)
+
+```bash
+MRC_API_KEY=your_key npx mrc-data
+```
+
+Get a free API key at [api.meacheal.ai/apply](https://api.meacheal.ai/apply)
+
+### Claude Desktop (stdio)
 
 Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mrc-data": {
+      "command": "npx",
+      "args": ["-y", "mrc-data"],
+      "env": { "MRC_API_KEY": "YOUR_API_KEY" }
+    }
+  }
+}
+```
+
+### Claude Desktop (remote HTTP — no npx needed)
 
 ```json
 {
@@ -114,6 +136,24 @@ Add to Zed settings (`settings.json`):
     }
   }
 }
+```
+
+### Hermes Agent
+
+Add to `~/.hermes/config.yaml`:
+
+```yaml
+mcp_servers:
+  mrc-data:
+    url: "https://api.meacheal.ai/mcp"
+    headers:
+      Authorization: "Bearer YOUR_API_KEY"
+```
+
+Or via CLI:
+
+```bash
+hermes mcp add mrc-data --url "https://api.meacheal.ai/mcp"
 ```
 
 ### SDK
