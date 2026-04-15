@@ -1,0 +1,32 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.meacheal/mrc-data",
+  "title": "MRC Data — Chinese Apparel Supply Chain",
+  "description": "Chinese apparel supply chain data: manufacturers, fabrics, industrial clusters.",
+  "repository": {
+    "url": "https://github.com/meacheal-ai/mrc-data",
+    "source": "github"
+  },
+  "version": "2.2.3",
+  "websiteUrl": "https://api.meacheal.ai",
+  "icons": [
+    {
+      "src": "https://meacheal.ai/favicon.svg",
+      "mimeType": "image/svg+xml"
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.meacheal.ai/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer token. Get a free API key at https://api.meacheal.ai/apply",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
