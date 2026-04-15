@@ -15,31 +15,9 @@ Every record includes a `verified_dims` score (e.g. "5/8") showing exactly which
 
 ## Install
 
-### Quick Start (npx — no install needed)
+Get a free API key at **[api.meacheal.ai/apply](https://api.meacheal.ai/apply)** -- instant, no waiting.
 
-```bash
-MRC_API_KEY=your_key npx mrc-data
-```
-
-Get a free API key at [api.meacheal.ai/apply](https://api.meacheal.ai/apply)
-
-### Claude Desktop (stdio)
-
-Add to `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "mrc-data": {
-      "command": "npx",
-      "args": ["-y", "mrc-data"],
-      "env": { "MRC_API_KEY": "YOUR_API_KEY" }
-    }
-  }
-}
-```
-
-### Claude Desktop (remote HTTP — no npx needed)
+### Claude Desktop
 
 ```json
 {
@@ -51,6 +29,10 @@ Add to `claude_desktop_config.json`:
   }
 }
 ```
+
+### Cursor / VS Code / Cline / Windsurf / JetBrains / Zed
+
+Same JSON format -- paste into your client's MCP config file.
 
 ### Claude Code
 
@@ -60,134 +42,31 @@ claude mcp add --scope user --transport http mrc-data \
   --header "Authorization: Bearer YOUR_API_KEY"
 ```
 
-### Cursor
-
-Add to `.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "mrc-data": {
-      "url": "https://api.meacheal.ai/mcp",
-      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
-    }
-  }
-}
-```
-
-### VS Code (Copilot)
-
-Add to `.vscode/mcp.json`:
-
-```json
-{
-  "servers": {
-    "mrc-data": {
-      "type": "http",
-      "url": "https://api.meacheal.ai/mcp",
-      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
-    }
-  }
-}
-```
-
-### Windsurf
-
-Add to `~/.codeium/windsurf/mcp_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "mrc-data": {
-      "serverUrl": "https://api.meacheal.ai/mcp",
-      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
-    }
-  }
-}
-```
-
-### Cline
-
-Add to Cline MCP settings:
-
-```json
-{
-  "mcpServers": {
-    "mrc-data": {
-      "url": "https://api.meacheal.ai/mcp",
-      "headers": { "Authorization": "Bearer YOUR_API_KEY" }
-    }
-  }
-}
-```
-
-### Zed
-
-Add to Zed settings (`settings.json`):
-
-```json
-{
-  "context_servers": {
-    "mrc-data": {
-      "settings": {
-        "url": "https://api.meacheal.ai/mcp",
-        "headers": { "Authorization": "Bearer YOUR_API_KEY" }
-      }
-    }
-  }
-}
-```
-
-### Hermes Agent
-
-Add to `~/.hermes/config.yaml`:
-
-```yaml
-mcp_servers:
-  mrc-data:
-    url: "https://api.meacheal.ai/mcp"
-    headers:
-      Authorization: "Bearer YOUR_API_KEY"
-```
-
-Or via CLI:
+### npx (no install needed)
 
 ```bash
-hermes mcp add mrc-data --url "https://api.meacheal.ai/mcp"
+MRC_API_KEY=your_key npx mrc-data
 ```
 
-### SDK
-
-```bash
-npm install mrc-data    # TypeScript / JavaScript
-pip install mrc-data    # Python
-```
-
-```ts
-import { MRCData } from "mrc-data";
-const mrc = new MRCData({ apiKey: "YOUR_API_KEY" });
-const suppliers = await mrc.searchSuppliers({ province: "guangdong", product_type: "sportswear" });
-```
-
-### REST API (ChatGPT Actions, Gemini, Copilot, custom apps)
-
-OpenAPI 3.1 spec: [api.meacheal.ai/openapi.json](https://api.meacheal.ai/openapi.json)
+### REST API
 
 ```bash
 curl https://api.meacheal.ai/v1/suppliers?province=guangdong \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
-### Get an API key
+OpenAPI 3.1 spec: [api.meacheal.ai/openapi.json](https://api.meacheal.ai/openapi.json)
 
-Free, instant signup at **[api.meacheal.ai/apply](https://api.meacheal.ai/apply)** -- no waiting, no review.
+**[All 20+ client configurations →](docs/all-clients.md)** including Hermes Agent, Roo Code, Continue.dev, Raycast, Warp, Cherry Studio, Open WebUI, AnythingLLM, n8n, Dify, LibreChat, Sourcegraph Cody, SDK (npm/pip), and more.
+
+### Pricing
 
 | Tier | Daily requests | Price |
 |---|---|---|
-| Demo | 50 / IP | Free, no key needed |
-| Free | 1,000 | $0 |
-| Pro | 10,000 | Contact us |
-| Enterprise | Unlimited | Contact us |
+| Free | 100 | $0 |
+| Pro | 5,000 | $29/mo |
+| Team | 20,000 | $99/mo |
+| Enterprise | 100,000 | $499/mo |
 
 ---
 
@@ -246,6 +125,7 @@ curl https://api.meacheal.ai/demo
 | API docs | [api.meacheal.ai/docs](https://api.meacheal.ai/docs) |
 | Interactive demo | [api.meacheal.ai/demo](https://api.meacheal.ai/demo) |
 | OpenAPI spec | [api.meacheal.ai/openapi.json](https://api.meacheal.ai/openapi.json) |
+| All client configs | [docs/all-clients.md](docs/all-clients.md) |
 | Design principles | [docs/design-principles.md](docs/design-principles.md) |
 | Full tool reference | [docs/tool-reference.md](docs/tool-reference.md) |
 | Slim tool reference | [docs/slim-tool-reference.md](docs/slim-tool-reference.md) |
