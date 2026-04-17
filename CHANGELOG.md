@@ -4,6 +4,23 @@ All notable changes to MRC Data are documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.2.4] - 2026-04-18
+
+### Added
+- MCP Resources expanded to **6** (from 3): `database-overview`, `compliance-standards`, `province-map`, `tool-selection-guide`, `synonyms`, `fabric-test-methods`
+- MCP Prompts expanded to **13** (from 3): `find-supplier`, `find-fabric`, `compare-clusters`, `sourcing-checklist`, `cost-estimation-flow`, `compliance-audit-walkthrough`, `supplier-due-diligence`, `fabric-selection-guide`, `cluster-comparison-report`, `alternative-sourcing-strategy`, `market-entry-china-sourcing`, `quality-verification-protocol`, `budget-tier-matching`
+- Tool descriptions enriched with USE WHEN / WORKFLOW / RETURNS / EXAMPLES / AVOID sections across all 19 tools
+
+### Documentation
+- Trust bar added to `/apply` and `/docs` landing pages (Smithery score + tool count + record scale)
+
+## [2.2.3] - 2026-04-15
+
+### Added
+- stdio proxy wrapper (index.js) for Official MCP Registry compatibility
+- Published to npm as `mrc-data@2.2.3`
+- MIT license for npm package (data/API remain proprietary)
+
 ## [2.2.2] - 2026-04-10
 
 ### Added
